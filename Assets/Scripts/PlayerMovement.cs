@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
+    
     private float AdjustSpeed(float horizontalSpeed, float verticalSpeed, float _baseSpeed)
     {
         bool isDiagonalMovement = horizontalSpeed > 0 && verticalSpeed > 0;
