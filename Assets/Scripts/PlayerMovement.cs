@@ -17,6 +17,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private int jumpCount = 0;
+    private bool isDiagonalMovement;
+    private float baseSpeed;
+
+    private void Start()
+    {
+        baseSpeed = speed;
+    }
 
 
     // Update is called once per frame
@@ -32,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        isDiagonalMovement = x > 0 && z > 0 ? true : false;
+        speed = isDiagonalMovement ? baseSpeed / 2 : baseSpeed;
 
         // Apply x and z transformations to player
         Vector3 move = transform.right * x + transform.forward * z;
