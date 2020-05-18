@@ -14,6 +14,7 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        ResetRotation();
     }
 
     // Update is called once per frame
@@ -30,5 +31,12 @@ public class MouseLook : MonoBehaviour
 
         // vertical
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    private void ResetRotation()
+    {
+        // TODO: Fix this so rotation starts at a 0,0 pos
+        Quaternion startingRotation = Quaternion.Euler(new Vector3(0.0f, 0.0f));
+        transform.localRotation = startingRotation;
     }
 }
