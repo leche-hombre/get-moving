@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private int jumpCount = 0;
-    private bool isDiagonalMovement;
     private float baseSpeed;
 
     private void Start()
@@ -40,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        isDiagonalMovement = x > 0 && z > 0 ? true : false;
-        speed = isDiagonalMovement ? baseSpeed / 2 : baseSpeed;
+        // Add arbitrary limitation to speed so diagonal movement isn't faster
+        speed = AdjustSpeed(x, z, baseSpeed);
 
         // Apply x and z transformations to player
         Vector3 move = transform.right * x + transform.forward * z;
@@ -61,5 +60,11 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    private float AdjustSpeed(float horizontalSpeed, float verticalSpeed, float _baseSpeed)
+    {
+        bool isDiagonalMovement = horizontalSpeed > 0 && verticalSpeed > 0;
+        return isDiagonalMovement ? _baseSpeed / 2 : _baseSpeed;
     }
 }
